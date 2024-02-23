@@ -6,6 +6,7 @@ import { v4 } from "uuid";
 
 function Contacts() {
   const [contact, setContact] = useState({
+    id: "",
     name: "",
     lastname: "",
     email: "",
@@ -19,6 +20,7 @@ function Contacts() {
     const value = e.target.value;
     setContact({ ...contact, [name]: value });
   };
+
   const addHandler = () => {
     if (
       !contact.name ||
@@ -40,6 +42,10 @@ function Contacts() {
     });
     // console.log(contacts);
   };
+  const deleteHandler = (id) => {
+    const newContacts = contacts.filter((contact) => contact.id !== id);
+    setContacts(newContacts);
+  };
   return (
     <div>
       <div>
@@ -57,7 +63,7 @@ function Contacts() {
         <button onClick={addHandler}>Add Contact</button>
       </div>
       <div>{alert && <p>{alert}</p>}</div>
-      <ContactsList contacts={contacts} />
+      <ContactsList contacts={contacts} deleteHandler={deleteHandler} />
     </div>
   );
 }
